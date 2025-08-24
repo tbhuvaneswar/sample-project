@@ -1,5 +1,6 @@
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
+import ContactForm from "./components/ContactForm"; // 👈 import
 import Footer from "./components/Footer";
 
 function App() {
@@ -7,7 +8,12 @@ function App() {
     <div className="App">
       <Navbar />
       <Hero />
-      {/* Add other sections like About, Projects, Contact here */}
+      
+      {/* 👇 Contact form section */}
+      <section id="contact" className="py-12 bg-white flex justify-center">
+        <ContactForm />
+      </section>
+
       <Footer />
     </div>
   );
