@@ -1,11 +1,14 @@
-import React from 'react';
+import Navbar from "./components/Navbar";
+import Hero from "./components/Hero";
+import Footer from "./components/Footer";
 
 function App() {
   return (
-    <div className="flex items-center justify-center h-screen bg-gray-100">
-      <h1 className="text-4xl font-bold text-blue-500">
-        Welcome to Your Portfolio!
-      </h1>
+    <div className="App">
+      <Navbar />
+      <Hero />
+      {/* Add other sections like About, Projects, Contact here */}
+      <Footer />
     </div>
   );
 }
