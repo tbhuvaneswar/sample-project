@@ -7,21 +7,37 @@ export default function ContactForm() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setMessage("Submitting...");
+
     try {
-      const res = await fetch("YOUR_API_GATEWAY_URL/submit", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, phone }),
-      });
+      const res = await fetch(
+        "https://g2y5zooftg.execute-api.us-east-2.amazonaws.com/dev/submit",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ name, phone }),
+        }
+      );
+
+      if (!res.ok) {
+        throw new Error(`HTTP error! status: ${res.status}`);
+      }
+
       const data = await res.json();
-      setMessage(data.message || "Submitted!");
+      setMessage(data.message || "Submitted successfully!");
+      setName("");
+      setPhone("");
     } catch (err) {
-      setMessage("Error submitting form");
+      setMessage(`Error submitting form: ${err.message}`);
+      console.error(err);
     }
   };
 
   return (
-    <form onSubmit={handleSubmit} className="p-6 bg-gray-100 rounded-lg shadow-md">
+    <form
+      onSubmit={handleSubmit}
+      className="p-6 bg-gray-100 rounded-lg shadow-md max-w-md mx-auto mt-10"
+    >
       <h2 className="text-2xl font-bold mb-4">Contact Me</h2>
       <input
         type="text"
@@ -39,7 +55,10 @@ export default function ContactForm() {
         className="block w-full p-2 mb-4 border rounded"
         required
       />
-      <button type="submit" className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+      <button
+        type="submit"
+        className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+      >
         Submit
       </button>
       {message && <p className="mt-4 text-green-600">{message}</p>}
